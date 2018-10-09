@@ -23,3 +23,5 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.14.0'
     api files('libs/persistence.jar')
 }
+
+apply from: "bintrayUpload.gradle"
