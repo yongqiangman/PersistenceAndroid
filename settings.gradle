@@ -12,4 +12,4 @@
  * limitations under the License.
  */
 
-include ':app', ':persistenceAndroid'
+include ':app', ':PersistenceAndroid'
