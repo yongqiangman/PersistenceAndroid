@@ -33,15 +33,15 @@ import android.os.Build;
 import android.support.v4.provider.DocumentFile;
 
 @TargetApi(Build.VERSION_CODES.N)
-public class RemoteDirectory implements IDirectoryVisitor {
+public class AndroidDirectory implements IDirectoryVisitor {
     private DocumentFile mDocumentFile;
     private Context mContext;
 
-    public RemoteDirectory(Context context, Uri treeUri) throws FileAccessErrException {
+    public AndroidDirectory(Context context, Uri treeUri) throws FileAccessErrException {
         this(context, DocumentFile.fromTreeUri(context, treeUri));
     }
 
-    public RemoteDirectory(Context context, DocumentFile file) throws FileAccessErrException {
+    public AndroidDirectory(Context context, DocumentFile file) throws FileAccessErrException {
         mContext = context;
         mDocumentFile = file;
         if (!mDocumentFile.isDirectory()) {
@@ -52,7 +52,7 @@ public class RemoteDirectory implements IDirectoryVisitor {
     @Override
     public IFileVisitor createNewFile(String displayName) throws FileAccessErrException {
         DocumentFile file = mDocumentFile.createFile(FileTools.getTypeForName(displayName), displayName);
-        return new RemoteFile(mContext, file);
+        return new AndroidFile(mContext, file);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class RemoteDirectory implements IDirectoryVisitor {
     @Override
     public IDirectoryVisitor getParent() {
         try {
-            return new RemoteDirectory(mContext, mDocumentFile.getParentFile());
+            return new AndroidDirectory(mContext, mDocumentFile.getParentFile());
         } catch (FileAccessErrException e) {
             return null;
         }
@@ -124,7 +124,7 @@ public class RemoteDirectory implements IDirectoryVisitor {
         ArrayList<IFileVisitor> fileVisitors = new ArrayList<>();
         for(DocumentFile file: mDocumentFile.listFiles()) {
             if (!file.isDirectory()) {
-                fileVisitors.add(new RemoteFile(mContext, file));
+                fileVisitors.add(new AndroidFile(mContext, file));
             }
         }
         return fileVisitors;
@@ -136,7 +136,7 @@ public class RemoteDirectory implements IDirectoryVisitor {
         for(DocumentFile file: mDocumentFile.listFiles()) {
             if (file.isDirectory()) {
                 try {
-                    dirVisitors.add(new RemoteDirectory(mContext, file));
+                    dirVisitors.add(new AndroidDirectory(mContext, file));
                 } catch (FileAccessErrException e) {
                     // do not handle
                 }

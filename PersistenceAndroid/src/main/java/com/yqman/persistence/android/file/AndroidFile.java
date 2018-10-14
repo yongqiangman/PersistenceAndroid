@@ -33,12 +33,12 @@ import android.os.Build;
 import android.support.v4.provider.DocumentFile;
 
 @TargetApi(Build.VERSION_CODES.N)
-public class RemoteFile implements IFileVisitor {
+public class AndroidFile implements IFileVisitor {
 
     private DocumentFile mDocumentFile;
     private Context mContext;
 
-    public RemoteFile(Context context, DocumentFile documentFile) {
+    public AndroidFile(Context context, DocumentFile documentFile) {
         mContext = context;
         mDocumentFile = documentFile;
     }
@@ -137,7 +137,7 @@ public class RemoteFile implements IFileVisitor {
     @Override
     public IDirectoryVisitor getDirectoryVisitor() {
         try {
-            return new RemoteDirectory(mContext, mDocumentFile.getParentFile());
+            return new AndroidDirectory(mContext, mDocumentFile.getParentFile());
         } catch (FileAccessErrException e) {
             return null;
         }
