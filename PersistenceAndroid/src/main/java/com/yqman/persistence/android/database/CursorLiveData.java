@@ -29,10 +29,9 @@ import android.support.v4.content.ContentResolverCompat;
  */
 public class CursorLiveData<T> extends MutableLiveData<T> {
     public CursorLiveData(@NonNull Context context,
-                          @NonNull IParser<T> parser,
                           @NonNull Uri uri, @Nullable String[] projection,
                           @Nullable String selection, @Nullable String[] selectionArgs,
-                          @Nullable String sortOrder) {
+                          @Nullable String sortOrder, @NonNull IParser<T> parser) {
         new LoadTask<>(this, parser, uri, projection, selection, selectionArgs, sortOrder).execute(context);
     }
 

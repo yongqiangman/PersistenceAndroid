@@ -14,17 +14,19 @@
 
 package com.yqman.persistence.android.database;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by manyongqiang on 2017/12/15.
  */
 
 public interface IDatabaseContext {
 
-    void create(IDatabaseOperation databaseOperation);
+    void create(@NonNull IDatabaseOperation databaseOperation);
 
-    void upgrade(IDatabaseOperation databaseOperation, int oldVersion, int newVersion);
+    void upgrade(@NonNull IDatabaseOperation databaseOperation, int oldVersion, int newVersion);
 
-    void open(IDatabaseOperation databaseOperation);
+    void open(@NonNull IDatabaseOperation databaseOperation);
 
     IDatabaseOperation getDatabase(boolean writable);
 }

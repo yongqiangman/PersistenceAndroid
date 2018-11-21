@@ -57,10 +57,10 @@ public class CursorLoader<T> {
 
     public CursorLoader(@NonNull Context context,
                         @NonNull LifecycleOwner lifecycleOwner,
-                        @NonNull IParser<T> parser,
                         @NonNull Uri uri, @Nullable String[] projection,
                         @Nullable String selection, @Nullable String[] selectionArgs,
-                        @Nullable String sortOrder) {
+                        @Nullable String sortOrder,
+                        @NonNull IParser<T> parser) {
         mContext = context;
         mLifecycleOwner = lifecycleOwner;
         mLifecycleOwner.getLifecycle().addObserver(new MyLifecycleObserver(lifecycleOwner));
