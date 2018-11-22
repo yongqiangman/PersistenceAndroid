@@ -17,39 +17,16 @@ package com.yqman.persistence.android.file.persistent
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
-import android.database.DatabaseUtils
 import android.net.Uri
 import android.util.Log
+import com.yqman.persistence.android.database.DatabaseTools
 
 class FileContentProvider: ContentProvider() {
     override fun bulkInsert(uri: Uri, values: Array<ContentValues>): Int {
         if (values.isEmpty()) {
             return 0
         }
-        val firstValues = values[0]
-        val sb = StringBuilder().append("INSERT INTO ").append(FileContract.TABLE).append("(")
-        var i = 0
-        for (colName in firstValues.keySet()) {
-            sb.append(if (i > 0) "," else "")
-            sb.append(colName)
-            i++
-        }
-        sb.append(") VALUES")
-
-        var index = 0
-        values.forEach {
-            sb.append("(")
-            i = 0
-            for (colName in firstValues.keySet()) {
-                sb.append(if (i > 0) "," else "")
-                sb.append(DatabaseUtils.sqlEscapeString(it[colName].toString()))
-                i++
-            }
-            sb.append(")")
-            index++
-            if (index < values.size) sb.append(",")
-        }
-        database.getDatabase(true).execSQL(sb.toString().apply {
+        database.getDatabase(true).execSQL(DatabaseTools.buildInsertSqlString(FileContract.TABLE, values).apply {
             Log.d("FileContentProvider", "insert $this")
         })
         context?.contentResolver?.apply {
