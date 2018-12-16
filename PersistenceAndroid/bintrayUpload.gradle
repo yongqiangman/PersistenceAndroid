@@ -15,7 +15,7 @@
 // part A:增加gradle插件和版本号
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "0.0.0"  // 项目版本号，每次都要修改
+version = "0.1.0"  // 项目版本号，每次都要修改
 
 def siteUrl = 'https://github.com/yongqiangman/PersistenceAndroid'      // 项目的主页
 def gitUrl = 'https://github.com/yongqiangman/PersistenceAndroid.git'   // Git仓库的url
