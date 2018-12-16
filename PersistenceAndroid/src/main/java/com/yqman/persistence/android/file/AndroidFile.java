@@ -79,24 +79,6 @@ public class AndroidFile implements IFileVisitor {
     }
 
     @Override
-    public String readNewLine() throws FileAccessErrException {
-        try {
-            InputStream inputStream = getInputStream();
-            if (inputStream == null) {
-                throw new FileAccessErrException("can not find file");
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String value = reader.readLine();
-            reader.close();
-            return value;
-        } catch (FileNotFoundException e) {
-            throw new FileAccessErrException(e.getMessage());
-        } catch (IOException e) {
-            throw new FileAccessErrException(e.getMessage());
-        }
-    }
-
-    @Override
     public OutputStream getOutputStream(boolean isAppendMode) throws FileAccessErrException {
         try {
             return mContext.getContentResolver().openOutputStream(mDocumentFile.getUri());
